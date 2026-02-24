@@ -1,8 +1,10 @@
+// ===== 请替换下面的占位符 =====
 const SUPABASE_URL = '你的SUPABASE_URL';
 const SUPABASE_ANON_KEY = '你的SUPABASE_ANON_KEY';
+// =============================
+
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// 登录
 document.getElementById('login-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value;
@@ -12,7 +14,6 @@ document.getElementById('login-form')?.addEventListener('submit', async (e) => {
     else window.location.href = 'character-create.html';
 });
 
-// 注册
 document.getElementById('register-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('reg-email').value;
@@ -25,7 +26,6 @@ document.getElementById('register-form')?.addEventListener('submit', async (e) =
     }
 });
 
-// 切换显示
 document.getElementById('show-register')?.addEventListener('click', (e) => {
     e.preventDefault();
     document.getElementById('auth-container').style.display = 'none';
