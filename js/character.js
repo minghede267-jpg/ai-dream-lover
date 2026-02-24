@@ -1,26 +1,24 @@
+// ===== 请替换下面的占位符 =====
 const SUPABASE_URL = '你的SUPABASE_URL';
 const SUPABASE_ANON_KEY = '你的SUPABASE_ANON_KEY';
+// =============================
+
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// 检查登录
 supabase.auth.getUser().then(({ data: { user } }) => {
     if (!user) window.location.href = 'index.html';
 });
 
-// 预设按钮
 document.querySelectorAll('[data-preset]').forEach(btn => {
     btn.addEventListener('click', () => {
         document.getElementById('char-personality').value = btn.dataset.preset;
     });
 });
 
-// AI建议（调用后端，需用户已选模型和密钥，这里简化，可后续实现）
 document.getElementById('ai-suggest').addEventListener('click', async () => {
-    // 这里可调用AI生成建议，暂略
     alert('此功能需用户先选择模型并填入密钥，后续完善');
 });
 
-// 提交角色
 document.getElementById('create-character').addEventListener('submit', async (e) => {
     e.preventDefault();
     const { data: { user } } = await supabase.auth.getUser();
@@ -33,7 +31,7 @@ document.getElementById('create-character').addEventListener('submit', async (e)
         name,
         personality,
         background,
-        avatar_url: 'assets/character_idle.png' // 默认立绘
+        avatar_url: 'assets/character_idle.png.JPG' // 匹配实际文件名
     });
     if (error) alert(error.message);
     else window.location.href = 'game.html';
