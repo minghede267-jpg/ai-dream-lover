@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏进行中</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <img id="background" src="assets/bg_default.jpg" alt="背景">
+        <canvas id="character-canvas" width="400" height="400"></canvas>
+        <div id="dialogue-box">
+            <div id="speaker-name"></div>
+            <div id="dialogue-text"></div>
+        </div>
+        <div id="options-area"></div>
+        <div id="free-action">
+            <button id="show-free-input">💬 自定义行动</button>
+            <input id="free-input" style="display:none;" placeholder="输入你想说的话...">
+        </div>
+        <div id="model-selector">
+            <select id="model-choice">
+                <option value="openai">OpenAI (GPT-3.5/4)</option>
+                <option value="deepseek">DeepSeek (免费)</option>
+                <option value="zhipu">智谱 (免费额度)</option>
+                <option value="grok">Grok (预留)</option>
+            </select>
+            <input type="password" id="api-key" placeholder="输入你的 API 密钥">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
