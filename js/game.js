@@ -1,11 +1,14 @@
-const SUPABASE_URL = '你的SUPABASE_URL';
-const SUPABASE_ANON_KEY = '你的SUPABASE_ANON_KEY';
+// ===== 请替换下面的占位符 =====
+const SUPABASE_URL = '你的SUPABASE_URL';          // 例如 https://xxxxx.supabase.co
+const SUPABASE_ANON_KEY = '你的SUPABASE_ANON_KEY'; // 你的 anon public key
+const API_BASE_URL = 'https://你的后端URL';        // 例如 https://backend-xxx.northflank.app
+// =============================
+
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-const API_BASE_URL = 'https://你的后端URL'; // 替换为Northflank服务URL
 
 let currentCharacter = null;
 let chatHistory = [];
-let user = null;
+let animator = null;
 
 // 动画管理器
 class SpriteAnimator {
@@ -16,9 +19,8 @@ class SpriteAnimator {
         this.currentAnim = 'idle';
         this.frameIndex = 0;
         this.lastFrameTime = 0;
-        this.frameDuration = 200; // 每帧200ms
+        this.frameDuration = 200;
         this.framesPerAnim = 4;
-        this.loop = true;
         this.loadSprites();
     }
 
@@ -26,8 +28,9 @@ class SpriteAnimator {
         const expressions = ['idle', 'happy', 'sad', 'blink'];
         for (let exp of expressions) {
             const img = new Image();
-            img.src = `assets/character_${exp}.png`; // 请确保这些文件存在
-            await new Promise(resolve => { img.onload = resolve; img.onerror = resolve; }); // 出错继续
+            // 注意：文件名已适配你上传的 .png.JPG 格式
+            img.src = `assets/character_${exp}.png.JPG`;
+            await new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
             this.sprites[exp] = img;
         }
         this.startAnimation();
@@ -68,14 +71,12 @@ class SpriteAnimator {
     }
 }
 
-// 初始化
 async function init() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
         window.location.href = 'index.html';
         return;
     }
-    // 获取当前用户最新创建的角色（简化：取第一个）
     const { data: chars } = await supabase.from('characters').select('*').eq('user_id', user.id).limit(1);
     if (!chars || chars.length === 0) {
         window.location.href = 'character-create.html';
@@ -84,14 +85,11 @@ async function init() {
     currentCharacter = chars[0];
     document.getElementById('speaker-name').innerText = currentCharacter.name;
 
-    // 加载聊天历史（可选）
     const { data: history } = await supabase.from('chat_history').select('*').eq('character_id', currentCharacter.id).order('created_at', { ascending: true });
     chatHistory = history || [];
 
-    // 初始化动画
-    window.animator = new SpriteAnimator('character-canvas');
+    animator = new SpriteAnimator('character-canvas');
 
-    // 绑定事件
     document.getElementById('show-free-input').addEventListener('click', () => {
         const input = document.getElementById('free-input');
         input.style.display = 'block';
@@ -109,13 +107,10 @@ async function init() {
     });
 }
 
-// 处理用户输入
 async function handleUserInput(input) {
-    // 添加到界面
     addMessage('user', input);
     chatHistory.push({ role: 'user', content: input });
 
-    // 获取用户选择的模型和密钥
     const model = document.getElementById('model-choice').value;
     const apiKey = document.getElementById('api-key').value;
     if (!apiKey) {
@@ -123,7 +118,6 @@ async function handleUserInput(input) {
         return;
     }
 
-    // 调用后端
     try {
         const res = await fetch(`${API_BASE_URL}/api/chat`, {
             method: 'POST',
@@ -132,21 +126,18 @@ async function handleUserInput(input) {
                 model,
                 apiKey,
                 character: currentCharacter,
-                messages: chatHistory.slice(-10), // 只传最近10条
+                messages: chatHistory.slice(-10),
                 userInput: input
             })
         });
         const data = await res.json();
-        // 显示AI回复
         addMessage('assistant', data.dialogue);
         chatHistory.push({ role: 'assistant', content: data.dialogue });
 
-        // 更新UI
         document.getElementById('dialogue-text').innerText = data.dialogue;
         if (data.expression_change) {
             animator.setExpression(data.expression_change);
         }
-        // 生成选项按钮
         renderOptions(data.options || []);
     } catch (err) {
         alert('调用失败：' + err.message);
@@ -154,7 +145,6 @@ async function handleUserInput(input) {
 }
 
 function addMessage(role, content) {
-    // 可以保存到数据库，暂略
     console.log(role, content);
 }
 
@@ -170,5 +160,4 @@ function renderOptions(options) {
     });
 }
 
-// 启动
 init();
