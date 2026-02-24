@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI梦境恋人 - 登录</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="auth-container">
+        <h1>🌸 AI梦境恋人</h1>
+        <form id="login-form">
+            <input type="email" id="email" placeholder="邮箱" required>
+            <input type="password" id="password" placeholder="密码" required>
+            <button type="submit">登录</button>
+        </form>
+        <p>还没有账号？<a href="#" id="show-register">立即注册</a></p>
+    </div>
+    <div id="register-container" style="display:none;">
+        <h1>注册新账号</h1>
+        <form id="register-form">
+            <input type="email" id="reg-email" placeholder="邮箱" required>
+            <input type="password" id="reg-password" placeholder="密码" required>
+            <button type="submit">注册</button>
+        </form>
+        <p>已有账号？<a href="#" id="show-login">返回登录</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
