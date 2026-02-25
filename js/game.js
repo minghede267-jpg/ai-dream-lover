@@ -1,6 +1,6 @@
 const SUPABASE_URL = 'https://souorplprfxxifsrsyho.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvdW9ycGxwcmZ4eGlmc3JzeWhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NDU1NDIsImV4cCI6MjA4NzUyMTU0Mn0.mYppPptcGIi03Tr-GwSLQFXGpwgHKIPVsvlfZ_XZ3NI';
-const API_BASE_URL = 'https://你的后端URL';  // 部署 Render 后替换为真实 URL
+const API_BASE_URL = 'https://ai-dream-lover.onrender.com';
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
