@@ -1,7 +1,5 @@
-// ===== 请替换下面的占位符 =====
-const SUPABASE_URL = '你的SUPABASE_URL';
-const SUPABASE_ANON_KEY = '你的SUPABASE_ANON_KEY';
-// =============================
+const SUPABASE_URL = 'https://souorplprfxxifsrsyho.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvdW9ycGxwcmZ4eGlmc3JzeWhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NDU1NDIsImV4cCI6MjA4NzUyMTU0Mn0.mYppPptcGIi03Tr-GwSLQFXGpwgHKIPVsvlfZ_XZ3NI';
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -31,7 +29,7 @@ document.getElementById('create-character').addEventListener('submit', async (e)
         name,
         personality,
         background,
-        avatar_url: 'assets/character_idle.png.JPG' // 匹配实际文件名
+        avatar_url: 'assets/character_idle.png.JPG'
     });
     if (error) alert(error.message);
     else window.location.href = 'game.html';
