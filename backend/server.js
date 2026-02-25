@@ -6,6 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 模型 API 端点映射
 const MODEL_ENDPOINTS = {
     openai: 'https://api.openai.com/v1/chat/completions',
     deepseek: 'https://api.deepseek.com/v1/chat/completions',
@@ -38,6 +39,7 @@ function buildRequestBody(model, messages, character, userInput) {
     };
 }
 
+// ✅ 关键路由：必须用 POST 方法
 app.post('/api/chat', async (req, res) => {
     const { model, apiKey, character, messages, userInput } = req.body;
     
@@ -82,6 +84,10 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 
-// 重要：使用 process.env.PORT 以适配 Render 等云平台
+// ✅ 添加一个测试路由，方便验证服务是否正常
+app.get('/test', (req, res) => {
+    res.json({ message: '后端服务运行正常' });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
