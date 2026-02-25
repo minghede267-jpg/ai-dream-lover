@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI梦境恋人 - 登录</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- 使用 unpkg 的 Supabase 库，更稳定 -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <!-- 可选：添加 vConsole 用于调试（如不需要可删除下面两行） -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/vconsole"></script>
+    <script>var vConsole = new VConsole();</script>
+    -->
 </head>
 <body>
     <div id="auth-container">
@@ -25,7 +32,7 @@
         </form>
         <p>已有账号？<a href="#" id="show-login">返回登录</a></p>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- auth.js 必须在 Supabase 库之后加载 -->
     <script src="js/auth.js"></script>
 </body>
 </html>
