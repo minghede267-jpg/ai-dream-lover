@@ -1,8 +1,6 @@
-// ===== 请替换下面的占位符 =====
-const SUPABASE_URL = '你的SUPABASE_URL';
-const SUPABASE_ANON_KEY = '你的SUPABASE_ANON_KEY';
-const API_BASE_URL = 'https://你的后端URL';        // 部署后端后替换为真实URL
-// =============================
+const SUPABASE_URL = 'https://souorplprfxxifsrsyho.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvdW9ycGxwcmZ4eGlmc3JzeWhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NDU1NDIsImV4cCI6MjA4NzUyMTU0Mn0.mYppPptcGIi03Tr-GwSLQFXGpwgHKIPVsvlfZ_XZ3NI';
+const API_BASE_URL = 'https://你的后端URL';  // 部署 Render 后替换为真实 URL
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -10,7 +8,6 @@ let currentCharacter = null;
 let chatHistory = [];
 let animator = null;
 
-// 动画管理器
 class SpriteAnimator {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
@@ -28,7 +25,6 @@ class SpriteAnimator {
         const expressions = ['idle', 'happy', 'sad', 'blink'];
         for (let exp of expressions) {
             const img = new Image();
-            // 注意：文件名已适配你上传的 .png.JPG 格式
             img.src = `assets/character_${exp}.png.JPG`;
             await new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
             this.sprites[exp] = img;
