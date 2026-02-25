@@ -1,7 +1,5 @@
-// ===== 请替换下面的占位符 =====
-const SUPABASE_URL = '你的SUPABASE_URL';          // 例如 https://yourproject.supabase.co
-const SUPABASE_ANON_KEY = '你的SUPABASE_ANON_KEY'; // 你的 anon public key
-// =============================
+const SUPABASE_URL = 'https://souorplprfxxifsrsyho.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvdW9ycGxwcmZ4eGlmc3JzeWhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NDU1NDIsImV4cCI6MjA4NzUyMTU0Mn0.mYppPptcGIi03Tr-GwSLQFXGpwgHKIPVsvlfZ_XZ3NI';
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
