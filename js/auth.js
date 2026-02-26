@@ -1,3 +1,4 @@
+<script>
 alert('auth.js 已加载 - 如果看到此弹窗，说明脚本执行了');
 
 const SUPABASE_URL = 'https://souorplprfxxifsrsyho.supabase.co';
@@ -42,3 +43,4 @@ function showLogin() {
     document.getElementById('register-container').style.display = 'none';
     document.getElementById('auth-container').style.display = 'block';
 }
+</script>
