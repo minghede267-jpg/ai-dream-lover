@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- 加载 Supabase 库 -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <!-- 加载 vConsole 调试工具（必选，用于查看错误） -->
+    <!-- 加载 vConsole 调试工具 -->
     <script src="https://cdn.jsdelivr.net/npm/vconsole"></script>
     <script>var vConsole = new VConsole();</script>
 </head>
@@ -30,6 +30,58 @@
         </form>
         <p>已有账号？<a href="#" id="show-login">返回登录</a></p>
     </div>
-    <script src="js/auth.js"></script>
+
+    <!-- 内联脚本，包含所有逻辑 -->
+    <script>
+        alert('内联脚本开始执行 - 如果看到此弹窗，说明脚本已运行');
+
+        // 使用新创建的 Supabase 项目密钥
+        const SUPABASE_URL = 'https://naswhcimrlbkudvsqxzr.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_Mm1s1LPF8k5-RfQPg7PcmQ_F3IFoehM';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 登录表单提交
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) alert(error.message);
+            else window.location.href = 'character-create.html';
+        });
+
+        // 注册表单提交
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const { error } = await supabase.auth.signUp({ email, password });
+            if (error) alert(error.message);
+            else {
+                alert('注册成功，请登录');
+                showLogin();
+            }
+        });
+
+        // 切换到注册表单
+        document.getElementById('show-register').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('register-container').style.display = 'block';
+        });
+
+        // 切换回登录表单
+        document.getElementById('show-login').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('register-container').style.display = 'none';
+            document.getElementById('auth-container').style.display = 'block';
+        });
+
+        function showLogin() {
+            document.getElementById('register-container').style.display = 'none';
+            document.getElementById('auth-container').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
